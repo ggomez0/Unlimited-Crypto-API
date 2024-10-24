@@ -1,28 +1,116 @@
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fexamples%2Ftree%2Fmain%2Fpython%2Fflask3&demo-title=Flask%203%20%2B%20Vercel&demo-description=Use%20Flask%203%20on%20Vercel%20with%20Serverless%20Functions%20using%20the%20Python%20Runtime.&demo-url=https%3A%2F%2Fflask3-python-template.vercel.app%2F&demo-image=https://assets.vercel.com/image/upload/v1669994156/random/flask.png)
+# Unlimited Crypto API Documentation
 
-# Flask + Vercel
+The **Unlimited Crypto API** provides endpoints to retrieve cryptocurrency prices and market information for top coins. This document covers the available API endpoints, their response formats, error handling, and usage examples.
 
-This example shows how to use Flask 3 on Vercel with Serverless Functions using the [Python Runtime](https://vercel.com/docs/concepts/functions/serverless-functions/runtimes/python).
+---
 
-## Demo
+## Base URL
+https://apicrypto.ggomez.tech
 
-https://flask-python-template.vercel.app/
+---
 
-## How it Works
+## Endpoints
 
-This example uses the Web Server Gateway Interface (WSGI) with Flask to enable handling requests on Vercel with Serverless Functions.
+### 1. `GET /api/price/{name_coin}`
 
-## Running Locally
+This endpoint retrieves the current price of a specific cryptocurrency based on the provided coin name.
 
-```bash
-npm i -g vercel
-vercel dev
+| Parameter  | Type   | Description                                       |
+|------------|--------|---------------------------------------------------|
+| name_coin  | string | The name of the cryptocurrency (e.g., bitcoin, ethereum) |
+
+#### Response
+
+The response will include the name of the cryptocurrency and its current price.
+
+### Example 
+
+```http
+GET /api/price/ethereum
 ```
 
-Your Flask application is now available at `http://localhost:3000`.
 
-## One-Click Deploy
+```json
+{
+  "coin": "ethereum",
+  "price": "$2,395.23"
+}
+```
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=vercel-examples):
+---
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fexamples%2Ftree%2Fmain%2Fpython%2Fflask3&demo-title=Flask%203%20%2B%20Vercel&demo-description=Use%20Flask%203%20on%20Vercel%20with%20Serverless%20Functions%20using%20the%20Python%20Runtime.&demo-url=https%3A%2F%2Fflask3-python-template.vercel.app%2F&demo-image=https://assets.vercel.com/image/upload/v1669994156/random/flask.png)
+### 2. `GET /api/top_coins_markets/{limit}`
+
+This endpoint retrieves the top cryptocurrencies based on their market value. You can limit the number of coins returned by specifying the `limit` parameter.
+
+| Parameter | Type    | Description                       |
+|-----------|---------|-----------------------------------|
+| limit     | integer | The maximum number of coins to return |
+
+#### Response
+
+The response is an array of top coins, including the coin's image, name, price, and symbol.
+
+#### Example Request
+
+```http
+GET /api/top_coins_markets/2
+```
+
+### Example
+
+```json
+[
+  {
+    "image": "https://assets.coingecko.com/coins/images/1/standard/bitcoin.png?1696501400",
+    "name": "Bitcoin",
+    "price": "$62,656.79",
+    "symbol": "BTC"
+  },
+  {
+    "image": "https://assets.coingecko.com/coins/images/279/standard/ethereum.png?1696501628",
+    "name": "Ethereum",
+    "price": "$2,390.53",
+    "symbol": "ETH"
+  }
+]
+```
+
+#### Example Output in Table Format:
+
+| Coin Image | Name     | Price      | Symbol |
+|------------|----------|------------|--------|
+| ![Bitcoin](https://assets.coingecko.com/coins/images/1/standard/bitcoin.png?1696501400) | Bitcoin  | $62,656.79 | BTC    |
+| ![Ethereum](https://assets.coingecko.com/coins/images/279/standard/ethereum.png?1696501628) | Ethereum | $2,390.53  | ETH    |
+
+---
+
+## Error Responses
+
+For both endpoints, the API may return error responses in the following format:
+
+#### Error Example
+
+```json
+{
+  "error": "Coin not found"
+}
+```
+
+| HTTP Status Code | Description                                  |
+|------------------|----------------------------------------------|
+| 404 Not Found    | The requested coin or resource does not exist |
+| 400 Bad Request  | Invalid input or parameters provided          |
+
+
+## Deploying the API Yourself
+
+To deploy the **Unlimited Crypto API** on your own, follow these steps:
+
+1. **Fork the Repository**: Click the "Fork" button at the top right of the repository page to create your own copy of the repository.
+
+1. **Sign Up / Log In to Vercel**: Go to [Vercel](https://vercel.com/) 
+
+2. **Import Project**: Click on the "New Project" button. Select "Import Git Repository" and choose the forked repository.
+
+3. **Access Your API**: After deployment, you will get a unique URL where your API is hosted. You can use this URL to access your API endpoints.
