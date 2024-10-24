@@ -10,6 +10,12 @@ def about():
         content = file.read()
     return content
 
+@app.route('/favicon.png')
+def favicon():
+    with open('api/btc.png', 'rb') as file:
+        content = file.read()
+    return content, 200, {'Content-Type': 'image/png'}
+
 @app.route('/api/price/<string:item_id>')
 def request_page(item_id):
     soup = get_url('https://www.coingecko.com/en/coins/' + item_id)
