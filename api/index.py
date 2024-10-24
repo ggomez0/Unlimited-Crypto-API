@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def about():
-    with open('api/index.html', 'r') as file:
+    with open('api/webpage.html', 'r') as file:
         content = file.read()
     return content
 
