@@ -1,9 +1,17 @@
+from dotenv import load_dotenv
 from flask import Flask
 import ccxt
+import os
+
+API_KEY = os.getenv('API_KEY')
+API_SECRET = os.getenv('API_SECRET')
+load_dotenv()
 
 app = Flask(__name__)
 
 exchange = ccxt.binance({
+    'apiKey': API_KEY,
+    'secret': API_SECRET,
     'enableRateLimit': True,
     'options': {
         'defaultType': 'spot',
