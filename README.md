@@ -39,7 +39,7 @@ GET /api/price/ethereum
 
 ---
 
-### 2. `GET /api/top_coins_markets/{limit}`
+### 2. `GET /api/top/{limit}`
 
 This endpoint retrieves the top cryptocurrencies based on their market value. You can limit the number of coins returned by specifying the `limit` parameter.
 
@@ -54,7 +54,7 @@ The response is an array of top coins, including the coin's image, name, price, 
 #### Example Request
 
 ```http
-GET /api/top_coins_markets/2
+GET /api/top/2
 ```
 
 ### Example
@@ -62,28 +62,17 @@ GET /api/top_coins_markets/2
 ```json
 [
   {
-    "image": "https://assets.coingecko.com/coins/images/1/standard/bitcoin.png?1696501400",
     "name": "Bitcoin",
     "price": "$62,656.79",
     "symbol": "BTC"
   },
   {
-    "image": "https://assets.coingecko.com/coins/images/279/standard/ethereum.png?1696501628",
     "name": "Ethereum",
     "price": "$2,390.53",
     "symbol": "ETH"
   }
 ]
 ```
-
-#### Example Output in Table Format:
-
-| Coin Image | Name     | Price      | Symbol |
-|------------|----------|------------|--------|
-| ![Bitcoin](https://assets.coingecko.com/coins/images/1/standard/bitcoin.png?1696501400) | Bitcoin  | $62,656.79 | BTC    |
-| ![Ethereum](https://assets.coingecko.com/coins/images/279/standard/ethereum.png?1696501628) | Ethereum | $2,390.53  | ETH    |
-
----
 
 ## Error Responses
 
