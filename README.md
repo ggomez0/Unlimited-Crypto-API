@@ -26,7 +26,7 @@ The response will include the name of the cryptocurrency and its current price.
 ### Example 
 
 ```http
-GET /api/price/ethereum
+GET /api/price/eth
 ```
 
 
@@ -74,6 +74,28 @@ GET /api/top/2
 ]
 ```
 
+### 3. `GET /api/ath/{name_coin}`
+
+This endpoint retrieves the ATH (all time high) price of a specific cryptocurrency based on the provided coin name.
+
+#### Response
+
+The response will include the name of the cryptocurrency, his ATH and when its happened.
+
+### Example 
+
+```http
+GET /api/ath/eth
+```
+
+
+```json
+{
+  "ath": 4864.91,
+  "ath_date": 1635984000000,
+  "symbol": "ETH"
+}
+```
 ## Error Responses
 
 For both endpoints, the API may return error responses in the following format:
