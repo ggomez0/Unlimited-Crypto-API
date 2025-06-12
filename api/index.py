@@ -28,10 +28,10 @@ def get_ath(symbol):
     try:
         ohlcv = exchange.fetch_ohlcv(symbol.upper() +'/USDT', timeframe='1w', limit=700)
         df = pd.DataFrame(ohlcv, columns=['timestamp', 'open', 'high', 'low', 'close', 'volume'])
-        ath = df['high'].max()
-        ath_date = df.loc[df['high'].idxmax(), 'timestamp']
+        ath = float(df['high'].max())
+        ath_date = int(df.loc[df['high'].idxmax(), 'timestamp'])
         return {
-            'symbol': symbol.upper() + '/USDT',
+            'symbol': symbol.upper(),
             'ath': ath,
             'ath_date': ath_date
         }
