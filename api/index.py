@@ -1,5 +1,6 @@
 from flask import Flask
 import ccxt
+import pandas as pd
 
 app = Flask(__name__)
 
@@ -22,7 +23,21 @@ def favicon():
         content = file.read()
     return content, 200, {'Content-Type': 'image/png'}
 
-
+@app.route('/api/ath/<string:symbol>')
+def get_ath(symbol):
+    try:
+        ohlcv = exchange.fetch_ohlcv(symbol.upper() +'/USDT', timeframe='1w', limit=700)
+        df = pd.DataFrame(ohlcv, columns=['timestamp', 'open', 'high', 'low', 'close', 'volume'])
+        ath = df['high'].max()
+        ath_date = df.loc[df['high'].idxmax(), 'timestamp']
+        return {
+            'symbol': symbol.upper() + '/USDT',
+            'ath': ath,
+            'ath_date': ath_date
+        }
+    except Exception as e:
+        return {'error': str(e)}
+    
 @app.route('/api/price/<string:symbol>')
 def get_binance_price(symbol):
     try:
@@ -48,7 +63,7 @@ def get_top_cryptos(limit):
                 continue
             if symbol.endswith('/USDT'):
                 market_data = {
-                    'symbol': symbol.replace('/USDT', ''),
+                    'symbol': ticker['symbol'],
                     'price': ticker['last'],
                     'volume_usdt': ticker['quoteVolume'],
                     'change_24h': ticker['percentage']
